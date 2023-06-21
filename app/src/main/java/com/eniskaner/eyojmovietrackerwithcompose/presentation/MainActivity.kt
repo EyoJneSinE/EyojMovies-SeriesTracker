@@ -1,4 +1,4 @@
-package com.eniskaner.eyojmovietrackerwithcompose
+package com.eniskaner.eyojmovietrackerwithcompose.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.eniskaner.eyojmovietrackerwithcompose.ui.theme.EyojMovieTrackerWithComposeTheme
+import com.eniskaner.eyojmovietrackerwithcompose.presentation.ui.theme.EyojMovieTrackerWithComposeTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

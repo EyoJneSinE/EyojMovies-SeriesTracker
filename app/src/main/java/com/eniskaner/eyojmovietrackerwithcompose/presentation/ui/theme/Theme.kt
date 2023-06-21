@@ -1,4 +1,4 @@
-package com.eniskaner.eyojmovietrackerwithcompose.ui.theme
+package com.eniskaner.eyojmovietrackerwithcompose.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
