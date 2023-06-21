@@ -1,5 +1,7 @@
 package com.eniskaner.eyojmovietrackerwithcompose.data.remote.dto
 
+import com.eniskaner.eyojmovietrackerwithcompose.domain.model.MovieDetail
+
 data class MovieDetailDTO(
     val Actors: String,
     val Awards: String,
@@ -27,3 +29,7 @@ data class MovieDetailDTO(
     val imdbRating: String,
     val imdbVotes: String
 )
+
+fun MovieDetailDTO.toMovieDetail() : MovieDetail {
+    return MovieDetail(Actors, Awards, BoxOffice, Country, Director, Genre, Language, Plot, Poster, Rated, Released, Runtime, Title, Type, Year, imdbRating)
+}
