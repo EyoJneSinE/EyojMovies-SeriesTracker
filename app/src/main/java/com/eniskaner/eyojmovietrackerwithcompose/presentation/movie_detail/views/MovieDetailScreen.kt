@@ -15,7 +15,6 @@ import com.eniskaner.eyojmovietrackerwithcompose.presentation.movie_detail.Movie
 
 @Composable
 fun MovieDetailScreen(
-    navController: NavController,
     viewModel : MovieDetailViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -32,7 +31,6 @@ fun MovieDetailScreen(
                     MovieDetailRow(movieDetail = movieDetail)
                 }
             }
-
         }
     }
 }
