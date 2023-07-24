@@ -35,17 +35,11 @@ fun MovieScreen(
                     viewModel.onEvent(MoviesEvent.Search(it))
                 }
             )
-
             LazyColumn(modifier = Modifier.fillMaxSize()) {
                 items(state.movies) {movie ->
                     MovieListRow(movie = movie, onItemClick = {
-
                     } )
-
-
-
                 }
-
             }
         }
     }

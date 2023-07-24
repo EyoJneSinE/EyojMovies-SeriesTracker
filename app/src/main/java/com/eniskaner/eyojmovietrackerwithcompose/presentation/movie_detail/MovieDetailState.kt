@@ -4,6 +4,6 @@ import com.eniskaner.eyojmovietrackerwithcompose.domain.model.MovieDetail
 
 data class MovieDetailState(
     val isLoading : Boolean = false,
-    val movie : MovieDetail? = null,
+    val movie : List<MovieDetail> = emptyList(),
     val error : String = ""
 )
