@@ -33,6 +33,7 @@ Lottie Animation: Uygulamada akış sağlayan görsellerin kullanımını destek
 
 YouTubePlayer: Uygulama içerisinde videoları izlemek için kullanılır. 
 
+----------------------------------------------------------------------------------------------------------------
 
 Project Description
 
