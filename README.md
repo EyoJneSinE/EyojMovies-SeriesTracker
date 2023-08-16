@@ -1,5 +1,17 @@
 # EyojMovies-SeriesTracker
 
+Proje Tanımı
+Bu proje, TheMovieDB API'sini kullanarak dizi ve film verilerini alarak, bu verilerle ilgili
+bilgilerin listelendiği bir MVVM (Model-View-ViewModel) ve Clean Architecture mimarisi projesidir.
+
+Proje Mimarisi
+Uygulama mantığı ve işlemleri ViewModel katmanında yönetilmektedir. ViewModel'ler, verileri saklar
+ve kullanıcı etkileşimlerini işler. Veri akışı, asenkron işlemleri etkili bir şekilde yönetmek için 
+"Coroutines" kullanılarak sağlanmaktadır. Özellikle, verileri çekerken ViewModel'lerde "Job" 
+kullanılmıştır. Bu sayede arka planda çalışan işlemler izlenebilir ve gerektiğinde iptal edilebilir,
+böylece kullanıcı arayüzünde anlık güncellemeler gerçekleştirilmektedir. Bu yapı, uygulamanın daha 
+akıcı ve hızlı bir deneyim sunmasına yardımcı olmaktadır.
+
 Kullanılan Kütüphaneler
 
 Retrofit: TheMovieDB API'sine yapılan çağrılarla güncel veriler alınmaktadır.
@@ -14,18 +26,22 @@ Compose ImageAsyncPainter: Dizi ve filmlerle ilgili resimleri yüklemek ve göst
 
 Material&Material3: Verilerin ekrana yansıtılması ve işlenmesi için kullanılan kütüphanelerdir.
 
+
 3. Parti Kütüphaneler
 
 Lottie Animation: Uygulamada akış sağlayan görsellerin kullanımını destekler.
+
 YouTubePlayer: Uygulama içerisinde videoları izlemek için kullanılır. 
 
 
 Project Description
+
 This project is built upon the MVVM (Model-View-ViewModel) and Clean Architecture principles, 
 aiming to deliver a comprehensive application experience. Leveraging TheMovieDB API, the project 
 fetches data related to TV series and movies, presenting users with informative details.
 
 Architecture Overview
+
 The application's core logic and processes are centralized within the ViewModel layer. ViewModels 
 take charge of data storage and user interactions. Data flow is orchestrated using "Coroutines" to 
 handle asynchronous operations seamlessly. Specifically, in the ViewModel context, "Jobs" are employed 
