@@ -4,7 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.eniskaner.eyojmovietrackerwithcompose.domain.usecase.GetMoviesUseCase
+import com.eniskaner.eyojmovietrackerwithcompose.domain.movies_usecase.GetMoviesUseCase
 import com.eniskaner.eyojmovietrackerwithcompose.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
@@ -17,29 +17,68 @@ class MoviesViewModel @Inject constructor(
     private val getMoviesUseCase: GetMoviesUseCase
 ) : ViewModel() {
 
-    private val _state = mutableStateOf<MoviesState>(MoviesState())
-    val state : State<MoviesState> = _state
+
+    private val _stateFromTMDB = mutableStateOf<MoviesState>(MoviesState())
+    val stateFromTMDB : State<MoviesState> = _stateFromTMDB
 
     private var job : Job? = null
 
     init {
-        getMovies(_state.value.search)
+        getSearchMoviesFromTMDB(_stateFromTMDB.value.search)
+        getMoviesFromTMBD()
     }
-
-    private fun getMovies(search: String) {
+    private fun getMoviesFromTMBD() {
         job?.cancel()
-        job = getMoviesUseCase.executeGetMovies(search).onEach {
+        job = getMoviesUseCase.executeGetMoviesFromTMDB().onEach {
             when (it) {
                 is Resource.Success -> {
-                    _state.value = MoviesState(movies = it.data ?: emptyList())
+                    _stateFromTMDB.value = MoviesState(movies = it.data?.movies ?: emptyList())
                 }
 
                 is Resource.Error -> {
-                    _state.value = MoviesState(error = it.message ?: "Error!")
+                    _stateFromTMDB.value = MoviesState(error = it.message ?: "Error!")
                 }
 
                 is Resource.Loading -> {
-                    _state.value = MoviesState(isLoading = true)
+                    _stateFromTMDB.value = MoviesState(isLoading = true)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getSearchMoviesFromTMDB(search: String) {
+        job?.cancel()
+        job = getMoviesUseCase.executeSearchMovieFromTMDB(search).onEach {
+            when (it) {
+                is Resource.Success -> {
+                    _stateFromTMDB.value = MoviesState(movies = it.data?.movies ?: emptyList())
+                }
+
+                is Resource.Error -> {
+                    _stateFromTMDB.value = MoviesState(error = it.message ?: "Error!")
+                }
+
+                is Resource.Loading -> {
+                    _stateFromTMDB.value = MoviesState(isLoading = true)
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
+    private fun getNowPlayingMoviesFromTMDB() {
+        job?.cancel()
+        job = getMoviesUseCase.executeGetNowPlayingMoviesFromTMDB().onEach {
+            when (it) {
+                is Resource.Success -> {
+                    _stateFromTMDB.value = MoviesState(movies = it.data?.movies ?: emptyList())
+                }
+
+                is Resource.Error -> {
+                    _stateFromTMDB.value = MoviesState(error = it.message ?: "Error!")
+                }
+
+                is Resource.Loading -> {
+                    _stateFromTMDB.value = MoviesState(isLoading = true)
                 }
             }
         }.launchIn(viewModelScope)
@@ -47,8 +86,8 @@ class MoviesViewModel @Inject constructor(
 
     fun onEvent(event : MoviesEvent) {
         when(event) {
-            is MoviesEvent.Search -> {
-                getMovies(event.searchString)
+            is MoviesEvent.SearchMovies -> {
+                getSearchMoviesFromTMDB(event.searchMovies)
             }
         }
     }
